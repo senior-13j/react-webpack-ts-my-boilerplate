@@ -9,8 +9,15 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "moduleResolution": "classic"
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "typeRoots": ["./types"],
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
-  "include": ["./src"],
+  "include": ["./src", "./types/types.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

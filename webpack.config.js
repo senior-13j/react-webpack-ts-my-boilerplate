@@ -1,24 +1,24 @@
-const path = require("path");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, "src/app/index.tsx"),
+  entry: path.resolve(__dirname, 'src/app/index.tsx'),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[hash].bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[hash].bundle.js',
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, "./dist"),
+    contentBase: path.resolve(__dirname, './dist'),
     open: true,
     compress: true,
     hot: true,
     port: 8080,
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -27,10 +27,10 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-typescript"],
-              plugins: ["@babel/plugin-proposal-class-properties"],
+              presets: ['@babel/preset-env', '@babel/preset-typescript'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
             },
           },
         ],
@@ -40,14 +40,37 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: [
-                "@babel/preset-env",
-                "@babel/preset-react",
-                "@babel/preset-typescript",
-              ],
-              plugins: ["@babel/plugin-proposal-class-properties"],
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                modules: true,
+              },
             },
           },
         ],
@@ -56,8 +79,8 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, "src/app/index.html"),
-      favicon: path.resolve(__dirname, "src/app/favicon.ico"),
+      template: path.resolve(__dirname, 'src/app/index.html'),
+      favicon: path.resolve(__dirname, 'src/app/favicon.ico'),
     }),
     new CleanWebpackPlugin(),
     new UglifyjsWebpackPlugin(),
